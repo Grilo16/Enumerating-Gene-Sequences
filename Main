@@ -1,35 +1,31 @@
- ## Enumerating gene sequences. 
+ def fpermutations(word):
+    if len(word) == 1:
+        return [word]
 
+    permutation = fpermutations(word[1:])
+    char = word[0]
+    permutations = []
+
+    for item in permutation:
+        for i in range(len(item)+1):
+            permutations.append(item[:i]+ char +item[i:])
+
+    return permutations
 
 def Factors(n):
     factors = [n]
-    for item in factors:
-        if factors[-1] > 1:
-            newfactor = factors[-1]-1
+    for i in factors:
+        if i > 1:
+            newfactor = i-1
             factors.append(newfactor)
         else:
             return factors
-            
+
+N = 7
+data = "".join([str(x) for x in Factors(N)])
+lists = [[item] for item in fpermutations(data)]
+x = '\n'.join([''.join([" ".join(item) for item in row]) for row in lists])
 
 
-def all_perms(elements):
-    if len(elements) <=1:
-        yield elements
-    else:
-        for perm in all_perms(elements[1:]):
-            for i in range(len(elements)):
-                # nb elements[0:1] works in both string and list contexts
-                yield perm[:i] + elements[0:1] + perm[i:]
- 
- 
- def all_perms(elements):
-    result = []
-    if len(elements) <=1:
-        result.append(elements)
-    else:
-        for perm in all_perms(elements[1:]):
-            for i in range(len(elements)):
-                # nb elements[0:1] works in both string and list contexts
-                result.append(perm[:i] + elements[0:1] + perm[i:])
-    return result
-    
+print(len(fpermutations(data)))
+print(x)
